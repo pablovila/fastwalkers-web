@@ -1,17 +1,29 @@
-import Link from "next/link";
-import Header from "../components/header";
+import React, { Component } from "react";
 
-function Index() {
-  return (
-    <main>
-      <Header />
-      <section>
-        <Link href="/about">
-          <a>Go to About Me</a>
-        </Link>
-      </section>
-    </main>
-  );
+import { requestGames } from "../utils/api-service";
+
+import Layout from "../components/layout";
+import GamesList from "../components/games-list";
+
+export default class Index extends Component {
+  static async getInitialProps() {
+    const data = await requestGames();
+    return {
+      games: data.map(d => {
+        return {
+          id: d.id,
+          name: d.names.international,
+          logo: d.assets["cover-large"].uri
+        };
+      })
+    };
+  }
+
+  render() {
+    return (
+      <Layout>
+        <GamesList games={this.props.games} />
+      </Layout>
+    );
+  }
 }
-
-export default Index;
