@@ -36,6 +36,6 @@
     "react-dom": "^16.8.4"
   },
   "devDependencies": {
-    "cypress": "^3.2.0"
+    "cypress": "^12.7.0"
   }
 }
